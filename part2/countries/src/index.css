@@ -14,8 +14,9 @@ code {
 .container {
   margin: 30px 50px;
 }
-img {
+.flag {
   width: 200px;
+  max-width: 200px;
 }
 span {
   display: inline-block;

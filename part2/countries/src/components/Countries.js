@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react'
 import SingleCountry from './SingleCountry'
 
 
-const Countries = ({countries, showAll}) => {
+const Countries = ({countries, weather}) => {
+  // define state for selected (single) country
   const [ selectedCountry, setSelectedCountry] = useState() 
-  let res = 'type correct filter'
-  let res1 = ''
-  console.log('heyyyyyyyyy', selectedCountry)
 
   useEffect(() => {
       if(countries.length === 1){
@@ -21,28 +19,13 @@ const Countries = ({countries, showAll}) => {
     </div>
   ))
 
-  // if(showAll.length > 0){
-  //   if(countries.length <= 10 && countries.length > 1){
-  //     res = shownCountries
-  //     if(selectedCountry){
-  //       res1 = <SingleCountry key={selectedCountry.numericCode} country={selectedCountry}/>
-  //     }
-  //   }
-  //   else if(countries.length > 10) {
-  //     res = 'too much'
-  //   }
-  //   else if(selectedCountry){
-  //     res = <SingleCountry key={selectedCountry.numericCode} country={selectedCountry}/>
-  //   }
-  // }
   console.log(selectedCountry)
-  return (
+  return ( 
     <div>
-      {/* {res}
-      {res1} */}
+      {/* if more than one countries in the list, then show list of countries */}
       {countries.length > 1 && shownCountries}
-      {selectedCountry && <SingleCountry key={selectedCountry.numericCode} country={selectedCountry}/>}
-      
+      {/* if selectedCountry is not undefined, show that single country */}
+      {selectedCountry && <SingleCountry key={selectedCountry.numericCode} country={selectedCountry} />}
     </div>
   )
 }
