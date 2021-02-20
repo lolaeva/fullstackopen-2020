@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-const PersonForm = ({newName, newNumber, handleNameChange, handleNumberChange, addPerson}) => {
+const PersonForm = ({newName, newNumber, onNameChange, onNumberChange, addPerson}) => {
     return (
     <form onSubmit={addPerson}>
       <div>
-        name: <input value={newName} onChange={handleNameChange}/>
+        name: <input value={newName} onChange={onNameChange}/>
       </div>
       <div>
-        number: <input value={newNumber} onChange={handleNumberChange}/>
+        number: <input value={newNumber} onChange={onNumberChange}/>
       </div>
       <div>
         <button type="submit">add</button>

@@ -11,3 +11,81 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --clr-light: #fff;
+  --clr-dark: #252525;
+  --clr-background: #eaecff;
+  --clr-background-dark: #d7dbfc;
+  --clr-notification: #d8f7e2;
+  --clr-notification-accent: #20b451;
+  --clr-error-notification: #fad1d1;
+  --clr-error-notification-accent: #b42020;
+  --clr-accent: #5d16e0;
+}
+/* span {
+  display: inline-block;
+  width: 350px;
+} */
+.phonebook__section {
+  width: 1200px;
+  margin: 30px 50px;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: var(--clr-background);
+}
+
+.filter__section {
+  margin-top: 15px;
+}
+
+.persons__list__item:hover {
+  background-color: var(--clr-background-dark);
+}
+
+.persons__list__item__content {
+  display: inline-block;
+  width: 400px;
+}
+/* .persons__list__item__button {
+  visibility: hidden;
+}
+.persons__list__item__button:hover {
+  visibility: inherit;
+}
+.persons__list__item__content:hover~.persons__list__item__button{
+  visibility: inherit;
+} */
+
+.notification {
+  width: 80%;
+  height: 25px;
+  padding: 5px;
+  margin: 0;
+  background-color: var(--clr-notification);
+  color: var(--clr-notification-accent);
+  border: 1px solid var(--clr-notification-accent);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.notification:empty {
+  transition: display 1s;
+  visibility: hidden;
+}
+
+.errorNotification {
+  width: 80%;
+  height: 25px;
+  padding: 5px;
+  margin: 0;
+  background-color: var(--clr-error-notification);
+  color: var(--clr-error-notification-accent);
+  border: 1px solid var(--clr-error-notification-accent);
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.errorNotification:empty {
+  transition: display 1s;
+  visibility: hidden;
+}
+

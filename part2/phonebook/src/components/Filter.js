@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 
 const Filter = ({showAll, handleFilter}) => {
   return (
-    <div>
+    <section className='filter__section'>
       filter shown with: <input value={showAll} onChange={handleFilter} />
-    </div>
+    </section>
   )
 }
 

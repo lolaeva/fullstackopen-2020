@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Filter from './components/Filter'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
-import axios from 'axios'
+import Notification from './components/Notification'
+import personService from './services/persons'
+import './index.css'
+
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
-  const [ newName, setNewName ] = useState('')
+  const [ persons, setPersons ]     = useState([]) 
+  const [ newName, setNewName ]     = useState('')
   const [ newNumber, setNewNumber ] = useState('')
-  const [showAll, setShowAll] = useState('') // for filtering displayed elements
+  const [ showAll, setShowAll ]     = useState('') // for filtering displayed elements
+  const [ message, setMessage ]     = useState('')
+  const [ errorMessage, setErrorMessage ]     = useState('')
 
   // effect-hooks
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(initialPerson => {
+        setPersons(initialPerson)
       })
   }, [])
 
@@ -27,14 +31,39 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    const isExists = persons.some(person => person.name === newName)
-    if(isExists){
-      alert(`${newName} is already added to phonebook`)
-    } 
+    // check if the same name exists
+    const isNameExists = persons.some(person => person.name === newName)
+    if(isNameExists){
+      const existing_id = persons.find(person => person.name === newName).id
+      if(!window.confirm(`${newName} is already added to phonebook. Replace old number with the new one? `)) return
+      // if confirm is ok, replace existing person with new one
+      personService
+        .update(existing_id, personObject)
+        .then(updatedPerson => {
+          console.log('POST RESPONSE', updatedPerson)
+          setPersons(persons.map(person => existing_id !== person.id ? person : updatedPerson))
+          setMessage(`Updated ${personObject.name} successfully.`)
+          setTimeout(() => setMessage(null), 5000)
+          setNewName('') 
+          setNewNumber('')
+        })
+        .catch(error => {
+          console.log(error)
+          setErrorMessage(`Information of ${personObject.name} has already been removed from the server.`)
+          setTimeout(() => setErrorMessage(null), 5000)
+        })
+    }
     else {
-      setPersons(persons.concat(personObject))
-      setNewName('') 
-      setNewNumber('')
+      personService
+        .create(personObject)
+        .then(responsedPerson => {
+          console.log('POST RESPONSE', responsedPerson)
+          setPersons(persons.concat(responsedPerson))
+          setMessage(`Added ${personObject.name} successfully`)
+          setTimeout(() => setMessage(null), 5000)
+          setNewName('') 
+          setNewNumber('')
+        })
     }
   }
 
@@ -44,20 +73,37 @@ const App = () => {
   const handleFilter = (event) => {
     setShowAll(event.target.value)
   }
-  const personsToShow = showAll === '' ? persons 
+  const handleDelete = id => {
+    console.log('TO BE DELETED', persons.find(person => person.id === id))
+    if (!window.confirm('Delete person')) return
+    let personToDelete = persons.find(person => person.id === id)
+
+    personService
+      .del(id)
+      .then(() => {
+        // alert(`Removed ${personToDelete.name}`)
+        setMessage(`Removed ${personToDelete.name} successfully`)
+        setTimeout(() => setMessage(null), 5000)
+        setPersons(persons.filter(p => p.id !== id))
+      })
+  }
+  // console.log(showAll.length)
+  // console.log(persons)
+  const personsToShow = showAll.length === 0 ? persons 
     : persons.filter(person => person.name.toLowerCase().includes(showAll.toLowerCase()))
+  console.log(message)
 
   return (
-    <div>
+    <section className='phonebook__section'>
       <h2>Phonebook</h2>
+      <Notification message={message} errorMessage={errorMessage}/>
       <Filter showAll={showAll} handleFilter={handleFilter}/>
       <h3>add a new</h3>
       <PersonForm newName={newName} newNumber={newNumber} 
-        handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} />
-
+        onNameChange={handleNameChange} onNumberChange={handleNumberChange} addPerson={addPerson} />
       <h3>Numbers</h3>
-      <Persons personsToShow={personsToShow} />
-    </div>
+      <Persons personsToShow={personsToShow} onDelete={handleDelete} />
+    </section>
   )
 }
 

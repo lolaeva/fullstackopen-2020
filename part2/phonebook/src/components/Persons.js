@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 
-const Persons = ({personsToShow}) => {
+const Persons = ({personsToShow, onDelete}) => {
   return (
-    <div>
+    <div className='persons__list'>
       {personsToShow.map(person => 
-        <div key={person.name}>{person.name}  {person.number}</div>
+        <div className='persons__list__item' key={person.id}>
+          <span className='persons__list__item__content'>{person.name}  {person.number}</span>
+          <button className='persons__list__item__button' 
+                  onClick={() => onDelete(person.id)}>
+                    delete
+          </button>
+        </div>
       )}
     </div>
   )
