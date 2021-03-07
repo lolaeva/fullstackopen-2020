@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+:root {
+  --clr-light: #fff;
+  --clr-dark: #252525;
+  --clr-background: #f8eaff;
+  --clr-background-dark: #f6d7fc;
+  --clr-notification: #d8f7e2;
+  --clr-notification-accent: #20b451;
+  --clr-error-notification: #fad1d1;
+  --clr-error-notification-accent: #b42020;
+  --clr-accent: #5d16e0;
+  --clr-accent-opacity: rgba(93, 22, 224, 0.4);
+}
+
+.container {
+  margin: 30px 50px;
+  width: 80%;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: var(--clr-background);
+}
+@media screen and (max-width: 600px){
+  .container{
+    width: 85%;
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+.blogform__section, .loginform__section, .toggle__section {
+  margin-bottom: 50px;
+}
+
+.blogform__input>span,.loginform__input>span {
+  display: inline-block;
+  width: 80px;
+  /* margin-right: 15px; */
+}
+
+.blog__item {
+  padding: 0 0 10px 5px;
+  margin-bottom: 10px;
+  border: 1px var(--clr-accent-opacity) solid;
+  border-radius: 5px;
+}
+.blog__item:hover{
+  background-color: var(--clr-background-dark);
+}
+
+
+.notification {
+  width: 80%;
+  padding: 5px;
+  margin: 0;
+  background-color: var(--clr-notification);
+  color: var(--clr-notification-accent);
+  border: 1px solid var(--clr-notification-accent);
+  border-radius: 5px;
+}
+.notification:empty {
+  transition: display 1s;
+  display: none;
+}
+
+.errorNotification {
+  width: 80%;
+  padding: 5px;
+  margin: 0;
+  background-color: var(--clr-error-notification);
+  color: var(--clr-error-notification-accent);
+  border: 1px solid var(--clr-error-notification-accent);
+  border-radius: 5px;
+}
+.errorNotification:empty {
+  transition: display 1s;
+  display: none;
+}
