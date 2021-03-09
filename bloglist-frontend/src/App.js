@@ -15,7 +15,7 @@ const App = () => {
   // const [ newBlogUrl, setNewBlogUrl ] = useState('')
   const [ errorMessage, setErrorMessage ] = useState()
   const [ message, setMessage ] = useState()
-  const [ username, setUsername ] = useState('') 
+  const [ username, setUsername ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ user, setUser ] = useState(null)
 
@@ -37,7 +37,7 @@ const App = () => {
     }
   }, [])
 
-  const handleUserNameChange = ({ target }) => setUsername(target.value)
+  const handleUsernameChange = ({ target }) => setUsername(target.value)
   const handlePasswordChange = ({ target }) => setPassword(target.value)
 
   const handleLogin = async (event) => {
@@ -52,7 +52,7 @@ const App = () => {
       // save login info
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
 
       setUser(user)
@@ -74,11 +74,11 @@ const App = () => {
 
   const increaseLikes = async (id) => {
     let blog = blogs.find(blog => blog.id === id)
-    let blogObject = {...blog, likes: blog.likes + 1}
+    let blogObject = { ...blog, likes: blog.likes + 1 }
     // console.log(blogObject)
     const returnedBlog = await blogService.update(blogObject)
     // console.log('BLOG', blogObject, returnedBlog)
-    setBlogs(blogs.map(blog => blog.id !== id ? blog : {...returnedBlog, user: blogObject.user}))
+    setBlogs(blogs.map(blog => blog.id !== id ? blog : { ...returnedBlog, user: blogObject.user }))
 
   }
 
@@ -95,14 +95,12 @@ const App = () => {
     setBlogs(blogs.filter(blog => blog.id !== id))
   }
 
-  console.log(blogs)
-
 
   const addBlog = async (blogObject) => {
     const returnedBlog = await blogService.create(blogObject)
-      
+
     console.log('RETURNED', returnedBlog)
-    setBlogs(blogs.concat({...returnedBlog, user: user}))
+    setBlogs(blogs.concat({ ...returnedBlog, user: user }))
 
     setMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
     setTimeout(() => {
@@ -129,26 +127,23 @@ const App = () => {
     return (
 
       <Togglable buttonLabel='login'>
-        <LoginForm 
-            handleSubmit={handleLogin}
-            username={username}
-            password={password}
-            handleUserNameChange={handleUserNameChange}
-            handlePasswordChange={handlePasswordChange}
-          />
+        <LoginForm
+          handleSubmit={handleLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={handleUsernameChange}
+          handlePasswordChange={handlePasswordChange}
+        />
       </Togglable>
     )
   }
 
-  // console.log(blogs.sort((a, b) =>  b.likes - a.likes))
-  
   return (
     <div className='container'>
       <h2>blogs</h2>
       <Notification message={message} errorMessage={errorMessage} />
-      { user === null ? loginForm() : 
-        <div>{userInfo()} {blogForm()}</div>
-        }
+      { user === null ? loginForm() :
+        <div>{userInfo()} {blogForm()}</div> }
 
       <section className='blog__section'>
         { blogs.sort((a, b) =>  b.likes - a.likes).map((blog, index) =>

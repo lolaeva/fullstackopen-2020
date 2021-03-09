@@ -5,15 +5,14 @@ const messageType = (message, errorMessage) => {
     <section className='notification'>
       {message}
     </section>
-  : 
+    :
     <section className='errorNotification'>
       {errorMessage}
     </section>
   return result
-    
 }
 
-const Notification = ({message, errorMessage}) => {
+const Notification = ({ message, errorMessage }) => {
   return (
     messageType(message, errorMessage)
   )
