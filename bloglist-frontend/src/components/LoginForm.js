@@ -8,7 +8,7 @@ const LoginForm = ({ handleSubmit, handleUsernameChange, handlePasswordChange, u
       <form onSubmit={handleSubmit}>
         <div className='loginform__input'>
           <span >username</span>
-          <input
+          <input id="username"
             type="text"
             value={username}
             name="Username"
@@ -17,14 +17,14 @@ const LoginForm = ({ handleSubmit, handleUsernameChange, handlePasswordChange, u
         </div>
         <div className='loginform__input'>
           <span>password</span>
-          <input
+          <input id="password"
             type="password"
             value={password}
             name="Password"
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit">login</button>
+        <button id="login-button" type="submit">login</button>
       </form>
     </div>
   )

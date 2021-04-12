@@ -35,9 +35,9 @@ const BlogForm = ({ createBlog }) => {
     <section>
       <form onSubmit={addBlog}>
         <h3>create new</h3>
-        <div className='blogform__input'><span>title:</span><input value={newBlogTitle} onChange={handleBlogTitleChange}/></div>
-        <div className='blogform__input'><span>author:</span><input value={newBlogAuthor} onChange={handleBlogAuthorChange}/></div>
-        <div className='blogform__input'><span>url:</span><input value={newBlogUrl} onChange={handleBlogUrlChange}/></div>
+        <div className='blogform__input'><span>title:</span><input id='input-title' value={newBlogTitle} onChange={handleBlogTitleChange}/></div>
+        <div className='blogform__input'><span>author:</span><input id='input-author' value={newBlogAuthor} onChange={handleBlogAuthorChange}/></div>
+        <div className='blogform__input'><span>url:</span><input id='input-url' value={newBlogUrl} onChange={handleBlogUrlChange}/></div>
         <button type="submit">save</button>
       </form>
     </section>
