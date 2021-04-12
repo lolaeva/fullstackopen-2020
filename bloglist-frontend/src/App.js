@@ -72,7 +72,8 @@ const App = () => {
     setUser(null)
   }
 
-  const increaseLikes = async (id) => {
+  const increaseLikes = async (event) => {
+    let id = event.target.value
     let blog = blogs.find(blog => blog.id === id)
     let blogObject = { ...blog, likes: blog.likes + 1 }
     // console.log(blogObject)
@@ -147,7 +148,7 @@ const App = () => {
 
       <section className='blog__section'>
         { blogs.sort((a, b) =>  b.likes - a.likes).map((blog, index) =>
-          <Blog key={index} blog={blog} handleLike={ increaseLikes } handleRemove={ removeBlog } />
+          <Blog key={index} blog={blog} increaseLikes={ increaseLikes } handleRemove={ removeBlog } user = { user } />
         )}
       </section>
     </div>
