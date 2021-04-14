@@ -7,7 +7,7 @@ const Countries = ({countries, weather}) => {
   const [ selectedCountry, setSelectedCountry] = useState() 
 
   useEffect(() => {
-      if(countries.length === 1){
+      if(countries.length === 1){ // if the list already contains single country
         setSelectedCountry(countries[0])
       }
     }, [countries])
