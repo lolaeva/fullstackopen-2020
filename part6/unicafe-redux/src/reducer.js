@@ -15,12 +15,12 @@ const counterReducer = (state = initialState, action) => {
     case 'OK':
       return {
         ...state,
-        good: state.ok + 1
+        ok: state.ok + 1
       }
     case 'BAD':
       return {
         ...state,
-        good: state.bad + 1
+        bad: state.bad + 1
       }
     case 'ZERO':
       return {
